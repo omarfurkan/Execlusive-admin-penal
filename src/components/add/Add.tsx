@@ -12,14 +12,14 @@ const Add = (props: Props) => {
 
   const mutation = useMutation({
     mutationFn: () => {
-      return fetch(`http://localhost:9000/api/${props.slug}s`, {
+      return fetch(`https://execlusive-server.vercel.app/api/${props.slug}s`, {
         method: "post",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: 8744,
+          id: Math.floor(Math.random() * (1000 - 9999 + 1)) + 9999,
           img: "",
           lastName: "Hello",
           firstName: "Test",

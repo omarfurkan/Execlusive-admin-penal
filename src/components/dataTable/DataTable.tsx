@@ -15,9 +15,12 @@ const DataTable = (props: Props) => {
 
   const mutation = useMutation({
     mutationFn: (id: number) => {
-      return fetch(`http://localhost:9000/api/${props.slug}/${id}`, {
-        method: "delete",
-      });
+      return fetch(
+        `https://execlusive-server.vercel.app/api/${props.slug}/${id}`,
+        {
+          method: "delete",
+        }
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries([`all${props.slug}`]);

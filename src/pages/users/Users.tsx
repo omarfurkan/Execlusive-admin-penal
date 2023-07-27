@@ -5,6 +5,7 @@ import "./users.scss";
 import { useState } from "react";
 import Add from "../../components/add/Add";
 import { useQuery } from "@tanstack/react-query";
+import Loader from "../../components/Loader/Loader";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
@@ -55,10 +56,12 @@ const columns: GridColDef[] = [
 ];
 const Users = () => {
   const [open, setOpen] = useState(false);
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ["allusers"],
     queryFn: () =>
-      fetch("http://localhost:9000/api/users").then((res) => res.json()),
+      fetch("https://execlusive-server.vercel.app/api/users").then((res) =>
+        res.json()
+      ),
   });
   return (
     <div className="users">
@@ -68,7 +71,7 @@ const Users = () => {
           <button onClick={() => setOpen(true)}>Add New User</button>
         </div>
         {isLoading ? (
-          "Loading..."
+          <Loader />
         ) : (
           <DataTable slug="users" rows={data} columns={columns} />
         )}
