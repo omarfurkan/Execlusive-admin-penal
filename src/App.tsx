@@ -10,6 +10,8 @@ import "./styles/global.scss";
 import User from "./pages/user/User";
 import Product from "./pages/product/Product";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Oders from "./pages/orders/Orders";
+import Posts from "./pages/posts/Posts";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +50,18 @@ function App() {
         {
           path: "/products",
           element: <Products />,
+        },
+        {
+          path: "/products",
+          element: <Products />,
+        },
+        {
+          path: "/orders",
+          element: <Oders />,
+        },
+        {
+          path: "/posts",
+          element: <Posts />,
         },
         {
           path: "/users/:id",

@@ -16,7 +16,7 @@ const DataTable = (props: Props) => {
   const mutation = useMutation({
     mutationFn: (id: number) => {
       return fetch(
-        `https://execlusive-server.vercel.app/api/${props.slug}/${id}`,
+        `https://execlusive-admin-dashboard.vercel.app/api/${props.slug}/${id}`,
         {
           method: "delete",
         }

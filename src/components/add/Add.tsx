@@ -1,4 +1,5 @@
 import { GridColDef } from "@mui/x-data-grid";
+import { useState } from "react";
 import "./add.scss";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -10,25 +11,37 @@ type Props = {
 const Add = (props: Props) => {
   const queryClient = useQueryClient();
 
+  const [formData, setFormData] = useState({
+    lastName: "",
+    firstName: "",
+    email: "",
+    phone: "",
+    createdAt: "",
+    verified: false,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
   const mutation = useMutation({
     mutationFn: () => {
-      return fetch(`https://execlusive-server.vercel.app/api/${props.slug}s`, {
-        method: "post",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: Math.floor(Math.random() * (1000 - 9999 + 1)) + 9999,
-          img: "",
-          lastName: "Hello",
-          firstName: "Test",
-          email: "testme@gmail.com",
-          phone: "123 456 789",
-          createdAt: "01.02.2023",
-          verified: true,
-        }),
-      });
+      return fetch(
+        `https://execlusive-admin-dashboard.vercel.app/api/${props.slug}s`,
+        {
+          method: "post",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: Math.floor(Math.random() * (1000 - 9999 + 1)) + 9999,
+            img: "",
+            ...formData,
+          }),
+        }
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries([`all${props.slug}s`]);
@@ -57,10 +70,15 @@ const Add = (props: Props) => {
             .map((column, index) => (
               <div className="item" key={index}>
                 <label>{column.headerName}</label>
-                <input type={column.type} placeholder={column.field} />
+                <input
+                  onChange={handleChange}
+                  type={column.type}
+                  name={column.field}
+                  placeholder={column.field}
+                />
               </div>
             ))}
-          <button>Send</button>
+          <button type="submit">Send</button>
         </form>
       </div>
     </div>

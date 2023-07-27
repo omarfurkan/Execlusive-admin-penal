@@ -1,4 +1,7 @@
 .dataTable {
+  .MuiDataGrid-root .MuiDataGrid-cell:focus {
+    outline: transparent;
+  }
   .dataGrid {
     background: white;
     padding: 20px;

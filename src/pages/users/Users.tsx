@@ -59,8 +59,8 @@ const Users = () => {
   const { isLoading, data } = useQuery({
     queryKey: ["allusers"],
     queryFn: () =>
-      fetch("https://execlusive-server.vercel.app/api/users").then((res) =>
-        res.json()
+      fetch("https://execlusive-admin-dashboard.vercel.app/api/users").then(
+        (res) => res.json()
       ),
   });
   return (
